@@ -8,9 +8,12 @@ int	track_philo(unsigned long time, int i, int *flag, t_g_strukt *data)
 	if (time > data->philos[i].last_eat && time - data->philos[i].last_eat
 		> (unsigned long)data->time_to_die)
 	{
-		pthread_mutex_lock(&data->print);
-		printf("%lu	%d	%s", time, i + 1, "died\n");
-		return (FALSE);
+		if (data->philos[i].status == FALSE)
+		{
+			pthread_mutex_lock(&data->print);
+			printf("%lu	%d	%s", time, i + 1, "died\n");
+			return (FALSE);
+		}
 	}
 	return (TRUE);
 }
